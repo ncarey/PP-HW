@@ -1,0 +1,12 @@
+Author: Nick Carey
+
+To Build:
+  - cd ./source
+  - make
+
+To Run:
+  - Build first
+  - cd ./source
+  - make run
+
+
