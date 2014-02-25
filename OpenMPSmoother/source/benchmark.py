@@ -11,7 +11,7 @@ def make_clean_make():
   output = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT).stdout.read()
   print output
 
-def run_one_a():
+def run_one():
 
   #data_first = {}
   #filter_first = {}
@@ -48,8 +48,10 @@ def run_one_a():
     data_file.write(d_w[:-1])
     filt_file.write(f_w[:-1])
 
-  call_octave('gen_graph_one.m')
+  #call_octave('gen_graph_one.m')
 
+def run_two():
+  print "haha"
 
 def call_octave(script_fn):
   cmd = 'octave graphs/{0}'.format(script_fn)
@@ -86,7 +88,7 @@ if __name__ =='__main__':
   parser = OptionParser(usage=usage)
 
   parser.add_option("-p", "--problem", type="string", dest="problem",
-                     default="1a", help="Select which problem to answer",
+                     default="one", help="Select which problem to answer",
                      metavar="#PROB")
 
 
@@ -94,7 +96,8 @@ if __name__ =='__main__':
 
   make_clean_make()
 
-  if options.problem == "1a":
-    run_one_a()
-
+  if options.problem == "one":
+    run_one()
+  elif options.problem == "two":
+    run_two()
 
