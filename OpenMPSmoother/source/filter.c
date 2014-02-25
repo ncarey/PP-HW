@@ -19,7 +19,7 @@
 
 /* Example filter sizes */
 #define DATA_LEN  512*512*128
-#define FILTER_LEN  512
+#define FILTER_LEN  4096
 
 
 /* Subtract the `struct timeval' values X and Y,
@@ -53,6 +53,7 @@ void serialFilterFirst ( int data_len, unsigned int* input_array, unsigned int* 
 {
   /* Variables for timing */
   struct timeval ta, tb, tresult;
+
 
   /* get initial time */
   gettimeofday ( &ta, NULL );
@@ -167,7 +168,7 @@ int main( int argc, char** argv )
   }
 
   /* Execute at a variety of filter lengths */
-  for ( int filter_len =16; filter_len<=FILTER_LEN; filter_len*=2) 
+  for ( int filter_len =1; filter_len<=FILTER_LEN; filter_len*=2) 
   {
     serialDataFirst ( DATA_LEN, input_array, serial_array, filter_len, filter_list );
     memset ( output_array, 0, DATA_LEN );
