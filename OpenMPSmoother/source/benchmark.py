@@ -48,7 +48,7 @@ def run_one_a():
     data_file.write(d_w[:-1])
     filt_file.write(f_w[:-1])
 
-  call_octave('gen_graph_one_a.m')
+  call_octave('gen_graph_one.m')
 
 
 def call_octave(script_fn):
