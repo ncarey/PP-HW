@@ -19,7 +19,7 @@
 
 /* Example filter sizes */
 #define DATA_LEN  512*512*128
-#define FILTER_LEN  512
+#define FILTER_LEN  4096
 
 
 /* Subtract the `struct timeval' values X and Y,
@@ -220,7 +220,7 @@ int main( int argc, char** argv )
   }
 
   /* Execute at a variety of filter lengths */
-  for ( int filter_len =512; filter_len<=FILTER_LEN; filter_len*=2) 
+  for ( int filter_len =1; filter_len<=FILTER_LEN; filter_len*=2) 
   {
 
     serialDataFirst ( DATA_LEN, input_array, serial_array, filter_len, filter_list );
@@ -230,7 +230,7 @@ int main( int argc, char** argv )
     checkData ( serial_array, output_array );
     memset ( output_array, 0, DATA_LEN );
 
-
+/*
     parallelFilterFirst ( DATA_LEN, input_array, output_array, filter_len, filter_list, 1);
     checkData ( serial_array, output_array );
     memset ( output_array, 0, DATA_LEN );
@@ -239,7 +239,7 @@ int main( int argc, char** argv )
     checkData ( serial_array, output_array );
     memset ( output_array, 0, DATA_LEN );
 
-/*
+
     parallelFilterFirst ( DATA_LEN, input_array, output_array, filter_len, filter_list, 2);
     checkData ( serial_array, output_array );
     memset ( output_array, 0, DATA_LEN );
