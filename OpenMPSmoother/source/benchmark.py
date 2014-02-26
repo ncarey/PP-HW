@@ -18,7 +18,7 @@ def run_two():
   data_first = {1:0, 2:0, 4:0, 8:0, 16:0}
   filter_first = {1:0, 2:0, 4:0, 8:0, 16:0}
   
-  iterations = 2
+  iterations = 20
   
   for i in range(0, iterations):
     print "Iteration {0}".format(i)
