@@ -43,7 +43,7 @@ def run_two():
       f_w += "{0},".format(filter_first[thread_c])
 
   
-  with open('bench_data/thread_count.txt', 'w') as thread_file, open('bench_data/data.txt', 'w') as data_file, open('bench_data/filter.txt', 'w') as filt_file:
+  with open('bench_data/thread_count.txt', 'a') as thread_file, open('bench_data/data.txt', 'a') as data_file, open('bench_data/filter.txt', 'a') as filt_file:
     thread_file.write(t_w[:-1])
     data_file.write(d_w[:-1])
     filt_file.write(f_w[:-1])

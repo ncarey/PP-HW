@@ -239,7 +239,7 @@ int main( int argc, char** argv )
     checkData ( serial_array, output_array );
     memset ( output_array, 0, DATA_LEN );
 
-
+/*
     parallelFilterFirst ( DATA_LEN, input_array, output_array, filter_len, filter_list, 2);
     checkData ( serial_array, output_array );
     memset ( output_array, 0, DATA_LEN );
@@ -274,7 +274,7 @@ int main( int argc, char** argv )
     parallelDataFirst ( DATA_LEN, input_array, output_array, filter_len, filter_list, 16);
     checkData ( serial_array, output_array );
     memset ( output_array, 0, DATA_LEN );
-
+*/
   }
 }
 

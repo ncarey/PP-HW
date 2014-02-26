@@ -4,9 +4,21 @@ To Build:
   - cd ./source
   - make
 
-To Run:
+To Run filter:
   - Build first
   - cd ./source
   - make run
+
+I have included a python script called benchmark.py.  I use this "driver" script to 
+execute and collect results from the filter.c program.  The results are then stored in 
+text files ready to be processed by octave for making pretty graphs.
+
+
+Note: I have edited the 'main' method of filter to perform actions based on the 
+current problem I am trying to solve.  For example, when solving 1a), the main method
+called the serial functions with different filter lengths.  However, when solving problem 2,
+the main method calls the parallel functions with a constant filter length but increasing 
+amounts of threads.  To switch filter.c to solve different problems is a trivial amount of code
+editing - all you have to do is edit FILT_LEN appropriately and comment out sections of the main method.
 
 
