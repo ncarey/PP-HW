@@ -19,7 +19,7 @@
 
 /* Example filter sizes */
 #define DATA_LEN  512*512*128
-#define FILTER_LEN  4096
+#define FILTER_LEN  512
 
 
 /* Subtract the `struct timeval' values X and Y,
@@ -173,6 +173,67 @@ void parallelDataFirst ( int data_len, unsigned int* input_array, unsigned int* 
   printf ("Parallel data first took %lu seconds and %lu microseconds.  Filter length = %d Threads = %d\n", tresult.tv_sec, tresult.tv_usec, filter_len, num_threads );
 }
 
+void parallelDataFirstOptimized ( int data_len, unsigned int* input_array, unsigned int* output_array, int filter_len, unsigned int* filter_list, int num_threads )
+{
+
+  omp_set_num_threads(num_threads);
+  /* Variables for timing */
+  struct timeval ta, tb, tresult;
+
+  /* get initial time */
+  gettimeofday ( &ta, NULL );
+
+  /* for all elements in the data */
+  #pragma omp parallel for
+  for (int x=0; x<data_len; x++) {
+    /* for all elements in the filter */ 
+    for (int y=0; y<filter_len; y+=8) { 
+      /* it the data element matches the filter */ 
+ 
+
+      if (input_array[x] == filter_list[y]) {
+        output_array[x] = input_array[x];
+        break;
+      }
+      if (input_array[x] == filter_list[y+1]) {
+        output_array[x] = input_array[x];
+        break;
+      }
+      if (input_array[x] == filter_list[y+2]) {
+        output_array[x] = input_array[x];
+        break;
+      }
+      if (input_array[x] == filter_list[y+3]) {
+        output_array[x] = input_array[x];
+        break;
+      }
+      if (input_array[x] == filter_list[y+4]) {
+        output_array[x] = input_array[x];
+        break;
+      }
+      if (input_array[x] == filter_list[y+5]) {
+        output_array[x] = input_array[x];
+        break;
+      }
+      if (input_array[x] == filter_list[y+6]) {
+        output_array[x] = input_array[x];
+        break;
+      }
+      if (input_array[x] == filter_list[y+7]) {
+        output_array[x] = input_array[x];
+        break;
+      }
+    }
+  }
+
+  /* get initial time */
+  gettimeofday ( &tb, NULL );
+
+  timeval_subtract ( &tresult, &tb, &ta );
+
+  printf ("Optimized data first took %lu seconds and %lu microseconds.  Filter length = %d Threads = %d\n", tresult.tv_sec, tresult.tv_usec, filter_len, num_threads );
+}
+
 
 void checkData ( unsigned int * serialarray, unsigned int * parallelarray )
 {
@@ -214,13 +275,14 @@ int main( int argc, char** argv )
 
   /* Initialize the filter. Values don't matter much. */
   filter_list = (unsigned int*) malloc ( FILTER_LEN * sizeof(unsigned int));
+
   for (y=0; y<FILTER_LEN; y++)
   {
     filter_list[y] = y;
   }
 
   /* Execute at a variety of filter lengths */
-  for ( int filter_len =1; filter_len<=FILTER_LEN; filter_len*=2) 
+  for ( int filter_len =512; filter_len<=FILTER_LEN; filter_len*=2) 
   {
 
     serialDataFirst ( DATA_LEN, input_array, serial_array, filter_len, filter_list );
@@ -229,8 +291,27 @@ int main( int argc, char** argv )
     serialFilterFirst ( DATA_LEN, input_array, output_array, filter_len, filter_list );
     checkData ( serial_array, output_array );
     memset ( output_array, 0, DATA_LEN );
-
+    
+    parallelFilterFirst ( DATA_LEN, input_array, output_array, filter_len, filter_list, 4);
+    checkData ( serial_array, output_array );
+    memset ( output_array, 0, DATA_LEN );
+    
+    parallelDataFirst ( DATA_LEN, input_array, output_array, filter_len, filter_list, 4);
+    checkData ( serial_array, output_array );
+    memset ( output_array, 0, DATA_LEN );
+    
+    parallelDataFirstOptimized ( DATA_LEN, input_array, output_array, filter_len, filter_list, 4);
+    checkData ( serial_array, output_array );
+    memset ( output_array, 0, DATA_LEN );
 /*
+    serialDataFirst ( DATA_LEN, input_array, serial_array, filter_len, filter_list );
+    memset ( output_array, 0, DATA_LEN );
+
+    serialFilterFirst ( DATA_LEN, input_array, output_array, filter_len, filter_list );
+    checkData ( serial_array, output_array );
+    memset ( output_array, 0, DATA_LEN );
+
+
     parallelFilterFirst ( DATA_LEN, input_array, output_array, filter_len, filter_list, 1);
     checkData ( serial_array, output_array );
     memset ( output_array, 0, DATA_LEN );

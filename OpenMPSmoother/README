@@ -14,7 +14,7 @@ execute and collect results from the filter.c program.  The results are then sto
 text files ready to be processed by octave for making pretty graphs.
 To run a benchmark, execute 'python benchmark.py -p "one"' or 'python benchmark.py -p "two"'
 Ensure that the filter.c main method is doing the correct actions. filter.c
-is currently set up to execute problem 1a
+is currently set up to execute one of each action.
 
 Note: I have edited the 'main' method of filter to perform actions based on the 
 current problem I am trying to solve.  For example, when solving 1a), the main method
