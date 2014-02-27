@@ -1,5 +1,5 @@
 
-log_axis_label = [1,2,4,8,16,32,64,128,256,512,1024,2048,4096]
+log_axis_label = [.0625,.125,.25,.5,1,2,4,8,16,32,64,128,256,512,1024,2048,4096]
 
 filt_len = dlmread('bench_data/filt_len.txt',',')
 filt = dlmread('bench_data/filter.txt',',')
